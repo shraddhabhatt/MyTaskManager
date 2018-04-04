@@ -1,12 +1,14 @@
 $(document).ready(function() 
 {
+  console.log("entered user.js");
 
-    $("#reg-form").on("submit", function handleFormSubmit(event) {
+  
+ $("#register-btn").on("click", function(event) {
       event.preventDefault();
       // Wont submit the post if we are missing a body or a title
-      var username = $("#username").val().trim();
-      var email = $("#email").val();
-      var password = $("#password").val().trim();
+      var username = $("#r_username").val().trim();
+      var email = $("#r_email").val();
+      var password = $("#r_password").val().trim();
 
       if (!email || !password) {
         return;
@@ -26,7 +28,36 @@ $(document).ready(function()
     });
 
       // empty each input box by replacing the value with an empty string
-      $("#username").val("");
+      $("#r_username").val("");
+      $("#r_email").val("");
+      $("#r_password").val("");  
+    
+   });
+
+    $("#login-btn").on("click", function(event) {
+      event.preventDefault();
+      // Wont submit the post if we are missing a body or a title
+      var email = $("#email").val();
+      var password = $("#password").val().trim();
+      var queryUrl;
+
+      if (!email || !password) {
+        return;
+      }
+      else
+      {
+         queryUrl = "/api/login/"+email+"/"+password;
+      }
+     // send an AJAX POST-request with jQuery
+      $.get(queryUrl, function(result) {
+        console.log("RESUTSSSSSS :: "+result);
+        if(result){
+          window.location.href = "/task";
+        }
+
+     });
+
+      // empty each input box by replacing the value with an empty string
       $("#email").val("");
       $("#password").val("");  
     
