@@ -18,7 +18,7 @@ module.exports = function(app) {
     }, {include: [db.User]}
     ).then(function(dbPost) {
       var responseToUser = "task has been successfully entered";
-      var responseJson = {fulfillmentMessages[0].text.text[0]: responseToUser}; //currently only text, need to add in speech
+      var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
       res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
       res.send(responseJson);
     });
@@ -46,7 +46,7 @@ module.exports = function(app) {
 
   app.post("/api/delete", function(req, res) {
     var taskName = req.body.queryResult.parameters.taskName;
-    
+
     db.Task.destroy({
       where: {
         task_text: taskName
