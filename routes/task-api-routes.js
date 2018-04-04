@@ -18,6 +18,41 @@ module.exports = function(app) {
     }, {include: [db.User]}
     ).then(function(dbPost) {
       var responseToUser = "task has been successfully entered";
+      var responseJson = {fulfillmentMessages[0].text.text[0]: responseToUser}; //currently only text, need to add in speech
+      res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+      res.send(responseJson);
+    });
+  });
+
+  app.post("/api/update", function(req, res) {
+    // Add code here to update a post using the values in req.body, where the id is equal to
+    // req.body.id and return the result to the user using res.json
+    var taskName = req.body.queryResult.parameters.taskName;
+
+    db.Task.update({
+      isdone: 1,
+      }, {
+      where: {
+        task_text: taskName
+        }
+      }
+    ).then(function(dbPost) {
+      var responseToUser = "task has been successfully entered as complete";
+      var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
+      res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+      res.send(responseJson);
+    });
+  });
+
+  app.post("/api/delete", function(req, res) {
+    var taskName = req.body.queryResult.parameters.taskName;
+    
+    db.Task.destroy({
+      where: {
+        task_text: taskName
+      }
+    }).then(function(dbPost) {
+      var responseToUser = "task has been successfully deleted";
       var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
       res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
       res.send(responseJson);
@@ -45,5 +80,3 @@ module.exports = function(app) {
   //   });
   // });
 };
-
-
