@@ -1,7 +1,6 @@
 <html lang="en" class="full-height">
    <body>
-      <head>
-         <meta charset="UTF-8">
+      <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
          <link rel="icon" href="assets/images/favicon.ico" type="image/ico" sizes="16x16">
          <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -20,7 +19,7 @@
             font-family: 'Chicle', cursive;
             font-size: 65px;
             color: black;
-            background: url('../assets/images/header.jpg');
+            background: url('../assets/images/notes_header.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center; 
@@ -70,7 +69,7 @@
               height: 30px;
           }
       </style>
-      </head> 
+      </head>
       <!--Main Navigation-->
       <header>
          <!-- Intro Section -->
@@ -80,9 +79,9 @@
                   <div class="row pt-5 mt-3">
                      <div class="col-md-12">
                         <div class="text-center">
-                           <h1 class="h1-reponsive text-dark text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
+                           <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Notes for Remembrance</strong></h1>
                            <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
-                           <h5 class="text-uppercase mb-5 text-dark wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
+                           <h5 class="text-uppercase mb-5 white-text wow fadeInDown" data-wow-delay="0.4s"><strong>Catchy tag line</strong></h5>
                         </div>
                      </div>
                   </div>
@@ -104,32 +103,32 @@
       <main>
          <div class="container task-container col-md-6">
             <!--Inputting new task-->
-         <form id="task-form">
+         <form id="notes-form">
            <div class="row">
                <div class="input-field col s10">
-                 <input id="taskname" type="text" name="taskname" class="validate" required/>     <!--  -->
-                 <label for="taskname">Task</label>
+                 <input id="notesheader" type="text" name="notesheader" class="validate" required/>     <!--  -->
+                 <label for="notesheader">Header</label>
                </div>
              </div>
              <div class="row">
                <div class="input-field col s6">
                      <!-- <i class="material-icons prefix">account_circle</i> -->
-                     <input id="taskdate" type="text" class="datepicker">
+                     <input id="notedate" type="text" class="datepicker">
                      <label>Date</label>
                   </div>
-                  <div class="input-field col s6">
-                     <!-- <i class="material-icons prefix">account_circle</i> -->
+                  <!-- <div class="input-field col s6">
+                     <i class="material-icons prefix">account_circle</i>
                      <input id="tasktime" type="text" class="timepicker">
                      <label>Time</label>
-                  </div>
+                  </div> -->
              </div>
              <div class="row">
                <div class="input-field col s10">
-                 <textarea id="messagebox" class="materialize-textarea"></textarea>
-                 <label for="messagebox">Message</label>
+                 <textarea id="notescontent" class="materialize-textarea"></textarea>
+                 <label for="notescontent">Message</label>
                </div>
              </div>
-             <button class="btn waves-effect waves-light" id="addtask-btn">SET TASK</button>
+             <button class="btn waves-effect waves-light" id="addnote-btn">ADD</button>
          </form>
          </div>
          <!--Table w/ tasks-->
@@ -159,7 +158,7 @@
             <a class="grey-text text-lighten-4 right" href="https://github.com/shraddhabhatt/Burger">developer area</a>
           </div>
       </footer>
-      <script src="../assets/js/task.js" type="text/javascript"></script>
+      <script src="../assets/js/user.js" type="text/javascript"></script>
       <script>
          $(document).ready(function(){
             $('.datepicker').pickadate({
@@ -170,7 +169,7 @@
             close: 'Ok',
             closeOnSelect: false // Close upon selecting a date,
             });
-           $('.timepicker').pickatime({
+          /* $('.timepicker').pickatime({
               default: 'now', // Set default time: 'now', '1:30AM', '16:30'
               fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
               twelvehour: false, // Use AM/PM or 24-hour format
@@ -180,7 +179,7 @@
               autoclose: false, // automatic close timepicker
               ampmclickable: true, // make AM PM clickable
               aftershow: function(){} //Function for after opening timepicker
-            });
+            });*/
          });
 
       </script>

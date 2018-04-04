@@ -3,45 +3,61 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>game worrior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <title>Task Manager</title>
 
-    <link rel="icon" href="assets/image/favicon.ico" type="image/ico" sizes="16x16">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico" sizes="16x16">
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> 
-    <!-- Compiled and minified CSS -->
+     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chicle|Spirax" rel="stylesheet">
     <style type="text/css">
-    
-      body {
-
+    header{
+      font-family: 'Chicle', cursive;
+      font-size: 65px;
+    }
+    body {
       background: #222;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('http://www.pptgrounds.com/wp-content/uploads/2016/05/Time-Management-PPT-Templates.jpg');
+      background: url('../assets/images/Login_bg_edited_small.jpg');
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center; 
-      justify-content: right;
-      align-items: right;
+      display: flex;
+      flex-direction: column;
       height: 100%;
+      min-height: 100vh;
     }
-    .container {
-      height: 100%;
+    main {
+       width: 100%;
+       height: 100%;
+       flex: 1 0 auto;
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
+    }
+    .col.s6 > .btn {
       width: 100%;
-    }
+    } 
     .login-box {
       height: 100%;
-      width: 650px;
+      flex-grow: 1;
+      flex-basis: 30%;
+      justify-content: flex-end;
     }
+    #login-card{
+      margin: 75px;
+      align-self: flex-end;
+    } 
     #regmodal,
     .login-card {
       background: white;
-      align-self: right;
       padding: 20px 15px;
       border: 5px solid #26a69a;
       width: 600px;
@@ -66,6 +82,15 @@
       top: -20px;
       right: -20px;
     }
+    footer{
+        background-color: white;
+        color: black;
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+    }
       
   </style>
 </head>
@@ -77,34 +102,33 @@
     </div>
   </header>
   <!-- Main Container -->
+  <main>
   <div class="container row login-box">
-  <div class="col s4 push-s8">
-  <div class="card" id="login-card">
-    <form id="login-form">
-      <div class="card-content">
-        <span class="card-title">Enter credentials</span>
-        <div class="row">
-          <div class="input-field col s10">
-            <label for="email">Email address</label>
-            <input type="email" name="email" id="email" />
+   <div class="card" id="login-card">
+        <form id="login-form">
+          <div class="card-content">
+            <span class="card-title">Enter credentials</span>
+            <div class="row">
+              <div class="input-field col s12">
+                <label for="email">Email address</label>
+                <input type="email" name="email" id="email" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <label for="password">Password </label>
+                <input type="password" name="password" id="password" />
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s10">
-            <label for="password">Password </label>
-            <input type="password" name="password" id="password" />
+          <div class="card-action right-align">
+            <a class="btn waves-effect waves-light modal-trigger" href="#regmodal">REGISTER</a>
+            <button class="btn waves-effect waves-light" id="login-btn">SUBMIT</button>
           </div>
-        </div>
+        </form>
       </div>
-      <div class="card-action right-align">
-        <a class="btn waves-effect waves-light modal-trigger" href="#regmodal">CREATE</a>
-        <a class="btn waves-effect waves-light" type="submit" name="action">SUBMIT
-        </a>
-      </div>
-    </form>
-  </div>
-  </div>
-  </div>
+   </div>
+  </main>
   <!-- Modal Structure -->
   <div id="regmodal" class="modal">
     <div class="modal-content">
@@ -112,32 +136,33 @@
       <form id="reg-form">
         <div class="row">
             <div class="input-field col s10">
-              <input id="username" type="text">     <!-- class="validate" required -->
-              <label for="username">Username</label>
+              <input id="r_username" type="text" name="r_username" class="validate" required/>     <!--  -->
+              <label for="r_username">Username</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s10">
-              <label for="email">Email address</label>
-              <input type="email" name="email" id="email" />
+              <label for="r_email">Email address</label>
+              <input type="email" name="r_email" id="r_email" class="validate" required/>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s10">
-              <label for="password">Password </label>
-              <input type="password" name="password" id="password" />
+              <label for="r_password">Password </label>
+              <input type="password" name="r_password" id="r_password" class="validate" required/>
             </div>
           </div>
-          <button class="btn waves-effect waves-light" id="register-btn" type="submit" action="">SUBMIT</button>
+          <button class="btn waves-effect waves-light" id="register-btn">SUBMIT</button>
       </form>
     </div>
     </div>
     <div class="container">
       
     </div>
-    <footer class="burgerFooter">
-    <div class="footer-copyright">
-      <span class="grey-text text-lighten-4">© 2018 Shraddha Bhatt</span>
+    
+    <footer class="footer-fixed">
+    <div class="footer-copyright ">
+      <span class="grey-text text-lighten-4">© 2018 Copyrights from Clark-Matthew-Sarah-Shraddha</span>
       <a class="grey-text text-lighten-4 right" href="https://github.com/shraddhabhatt/Burger">developer area</a>
     </div>
     </footer>
