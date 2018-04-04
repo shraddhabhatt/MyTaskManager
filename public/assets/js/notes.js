@@ -23,9 +23,8 @@ $(document).ready(function()
       };
       console.log(newUser);
       // send an AJAX POST-request with jQuery
-      $.post("/api/register", newUser, function(result) {
-        console.log("RESULT :: "+result.id);
-        window.location.href = "/login";
+      $.post("/api/register", newUser, function() {
+      window.location.href = "/login";
     });
 
       // empty each input box by replacing the value with an empty string
@@ -41,8 +40,7 @@ $(document).ready(function()
       var email = $("#email").val();
       var password = $("#password").val().trim();
       var queryUrl;
-      sessionStorage.setItem("email", email);
-      
+
       if (!email || !password) {
         return;
       }
@@ -52,9 +50,8 @@ $(document).ready(function()
       }
      // send an AJAX POST-request with jQuery
       $.get(queryUrl, function(result) {
-        console.log("RESUTSSSSSS :: "+result.email);
+        console.log("RESUTSSSSSS :: "+result);
         if(result){
-          console.log("RESULT :: "+result.id);
           window.location.href = "/task";
         }
 

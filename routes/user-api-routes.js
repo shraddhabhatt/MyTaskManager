@@ -22,9 +22,23 @@ module.exports = function(app) {
         password: req.params.password
       }
     }).then(function(dbresponse) {
-        console.log("######### "+dbresponse);
+        console.log("######### "+dbresponse.email);
         res.json(dbresponse);
       });
   });
+
+  // Get route for retrieving user data
+  app.get("/api/login/:email", function(req, res) {
+    console.log(req.body);
+    db.User.findOne({
+      where: {
+        email: req.params.email
+      }
+    }).then(function(dbresponse) {
+        console.log("##### EMAIL #### "+dbresponse.email);
+        res.json(dbresponse);
+      });
+  });
+
 
 }; 

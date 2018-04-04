@@ -5,24 +5,26 @@ module.exports = function(app) {
   app.post("/api/posts", function(req, res) {
       // Add sequelize code for creating a Task using req.body.result.parameters,
       // then return the result using res.send
-    db.Task.create({
-      task_text: req.body.queryResult.parameters.taskName,
-      task_date: req.body.queryResult.parameters.date,
-      isdone: 0,
-      user: {
-      	username: "SCL",
-      	email: "S@L.com",
-      	password: "test"
-      }
-      // UserId: 1
-    }, {include: [db.User]}
-    ).then(function(dbPost) {
-      var responseToUser = "task has been successfully entered";
-      var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
-      res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-      res.send(responseJson);
+    db.User.find({where: {email: req.body.email}}).then(function(user) 
+    {
+       db.Task.create({
+          task_text: req.body.queryResult.parameters.taskName,
+          task_date: req.body.queryResult.parameters.date,
+          isdone: 0,
+          UserId: user.id
+          /*user: {
+          	username: "SCL",
+          	email: "S@L.com",
+          	password: "test"
+          }*/
+        }).then(function(dbPost) {
+          var responseToUser = "task has been successfully entered";
+          var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
+          res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+          res.send(responseJson);
+        });
+      });
     });
-  });
 
   app.post("/api/update", function(req, res) {
     // Add code here to update a post using the values in req.body, where the id is equal to
@@ -66,8 +68,28 @@ module.exports = function(app) {
       res.json(dbPost);
     });
   });
-
-
+  
+  // add new task associated with user id manually using the SET TASK Button
+  app.post("/api/task/new", function(req, res) {
+      // Add sequelize code for creating a Task using req.body.result.parameters,
+      // then return the result using res.send
+    db.User.find({where: {email: req.body.email}}).then(function(user) 
+    {
+        db.Task.create({
+          task_text: req.body.task_text,
+          task_date: req.body.task_date,
+          task_message: req.body.task_message,
+          isdone: 0,
+          UserId: user.id
+          // UserId: 1
+        }).then(function(dbPost) {
+          var responseToUser = "task has been successfully entered";
+          var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
+          res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+          res.send(responseJson);
+        });
+    });
+});
 //get all of the tasks for a individual user
   // app.get("/api/posts/:id", function(req, res) {
   //   db.Post.findAll({
