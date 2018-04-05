@@ -2,7 +2,8 @@ $(document).ready(function()
 {
   console.log("entered user.js");
 
-  
+ $('.tap-target').tapTarget('open');
+
  $("#register-btn").on("click", function(event) {
       event.preventDefault();
       // Wont submit the post if we are missing a body or a title
