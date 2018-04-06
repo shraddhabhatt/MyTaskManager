@@ -20,17 +20,7 @@ $(document).ready(function()
 
       var queryUrl = "/api/login/"+currentuser;
       
-     /* $.get(queryUrl, function(result){
-
-        console.log("##### LLLLLL ::: "+result.email);
-        var user = {
-            id: result.id,
-            username: result.username,
-            email: result.email,
-            password: result.password
-        }
-        console.log(user);*/
-        var newTask = {
+      var newTask = {
             task_text: taskname,
             task_date: dateTime,
             task_message: taskmessage,
@@ -42,9 +32,7 @@ $(document).ready(function()
         
       //  window.location.href = "/task";
         });
-      /*});*/
       
-
       // empty each input box by replacing the value with an empty string
       $("#taskname").val("");
       $("#taskdate").val("");

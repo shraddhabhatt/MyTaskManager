@@ -1,14 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
   var Note = sequelize.define("Note", {
-    note_text: {
+    n_header: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    note_date: {
+    n_notedate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    location: {
+    n_location: {
+      type: DataTypes.GEOMETRY('POINT'),
+      allowNull: true,
+    },
+    n_content: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    n_image: {
       type: DataTypes.STRING,
       allowNull: true,
     }
