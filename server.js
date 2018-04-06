@@ -43,7 +43,7 @@ db.sequelize.sync({ force: true }).then(function() {
 //
 // client.messages.create({
 //     body: 'INSERT THE TASK HERE FROM THE DATA BASE',
-//     to: '+12072515500',  // Text this number
+//     to: '+1207*******',  // Text this number
 //     from: '+16036643221' // From a valid Twilio number
 // })
 // .then((message) => console.log(message.sid));
