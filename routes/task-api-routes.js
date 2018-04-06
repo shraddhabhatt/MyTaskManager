@@ -1,4 +1,6 @@
 var db = require("../models");
+var where = require('node-where');
+// var geolocation = require('geolocation');
 
 module.exports = function(app) {
 
@@ -57,44 +59,92 @@ module.exports = function(app) {
               });
       }
 
-        
+      else if(req.body.result.action == "note.add"){
+          // geolocation.getCurrentPosition(function (err, position) {
+          //   if (err) throw err
+          //   console.log(position)
+          where.is("Portsmouth, NH", function(err, result) {
+            if (result) {
+
+              console.log('Lat: ' + result.get('lat'));
+              console.log('Lng: ' + result.get('lng'));
+              var lat = result.get('lat');
+              var long = result.get('lng');
+              var location = { type: 'Point', coordinates: [lat , long]};
+              console.log(location);
+
+              db.User.find({where: {id: 1}}).then(function(user) 
+            {
+               db.Note.create({
+                  n_header: req.body.result.parameters.noteHeader,
+                  n_notedate: req.body.result.parameters.noteDate,
+                  n_location: lat + ", " + long,
+                  n_content: req.body.result.parameters.noteContent,
+                  UserId: user.id
+                }).then(function(dbPost) {
+                  var responseToUser = "note has been successfully entered";
+                  var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
+                  res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+                  res.send(responseJson);
+                  
+                });
+              });
+            }
+          });          
+        // });
+      }
+
+      else if(req.body.result.action == "note.update"){
+         where.is("Portsmouth, NH", function(err, result) {
+          if (result){
+              console.log('Lat: ' + result.get('lat'));
+              console.log('Lng: ' + result.get('lng'));
+              var lat = result.get('lat');
+              var long = result.get('lng');
+
+              if(req.body.result.parameters.noteContent && req.body.result.parameters.noteDate){
+                  db.Note.find({where: {n_header: req.body.result.parameters.noteHeader}}).then(function(note){
+                    db.Note.update({
+                    n_content: note.n_content + " // " + req.body.result.parameters.noteContent,
+                    n_notedate: req.body.result.parameters.noteDate,
+                    n_location: lat + ", " + long 
+                    }, {
+                    where: {
+                      n_header: req.body.result.parameters.noteHeader
+                      }
+                    }
+                  ).then(function(dbPost) {
+                    var responseToUser = "note has been successfully updated";
+                    var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
+                    res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+                    res.send(responseJson);
+                  });
+              });
+            }
+            else{
+                db.Note.find({where: {n_header: req.body.result.parameters.noteHeader}}).then(function(note){
+                    db.Note.update({
+                    n_content: note.n_content + " // " + req.body.result.parameters.noteContent,
+                    n_location: lat + ", " + long
+                    }, {
+                    where: {
+                      n_header: req.body.result.parameters.noteHeader
+                      }
+                    }
+                  ).then(function(dbPost) {
+                    var responseToUser = "note has been successfully updated";
+                    var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
+                    res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+                    res.send(responseJson);
+                  });
+                });
+            }         
+          }
+         }); 
+          
+      }     
     });
       
-
-  // app.post("/api/update", function(req, res) {
-  //   // Add code here to update a post using the values in req.body, where the id is equal to
-  //   // req.body.id and return the result to the user using res.json
-  //   var taskName = req.body.result.parameters.taskName;
-
-  //   db.Task.update({
-  //     isdone: 1,
-  //     }, {
-  //     where: {
-  //       task_text: taskName
-  //       }
-  //     }
-  //   ).then(function(dbPost) {
-  //     var responseToUser = "task has been successfully entered as complete";
-  //     var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
-  //     res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-  //     res.send(responseJson);
-  //   });
-  // });
-
-  // app.post("/api/delete", function(req, res) {
-  //   var taskName = req.body.queryResult.parameters.taskName;
-
-  //   db.Task.destroy({
-  //     where: {
-  //       task_text: taskName
-  //     }
-  //   }).then(function(dbPost) {
-  //     var responseToUser = "task has been successfully deleted";
-  //     var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
-  //     res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-  //     res.send(responseJson);
-  //   });
-  // });
 
   //get all tasks from the database
   app.get("/api/posts", function(req, res) {

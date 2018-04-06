@@ -35,8 +35,7 @@ var showPosition = function(position) {
           map:    map
       });
             
-      var response = 'Latitude: ' + latitude + ' / Longitude: ' + longitude;  // build string containing lat/long
-      console.log("LOCATION :: "+response);
+      var response = latitude + ',' + longitude;  // build string containing lat/long
       $("#notelocation").val(response);                     // write string to input field
 }
 
@@ -45,69 +44,44 @@ $(document).ready(function()
   console.log("entered user.js");
 
  $('.tap-target').tapTarget('open');
-
+ 
  $("#addnote-btn").on("click", function(event) {
+      
       event.preventDefault();
       var currentuser = sessionStorage.getItem('email');
-   
-      console.log("image file path :: "+currentuser);
-
+           
       // Wont submit the post if we are missing a body or a title
       var header = $("#notesheader").val().trim();
       var content = $("#notescontent").val().trim();
       var notedate = moment($("#notedate").val().trim()).format('MM/DD/YYYY');
-      var location = { type: 'Point', coordinates: [39.807222,-76.984722]};
-      var filepath = $("#input-file-now-custom-2");
+      var location = $("#notelocation").val();
+      var filepath = $("#filename").val().trim();
+      var filename;
 
+      if(filepath != null){
+        var fields = filepath.split('\\');
+        filename = fields[fields.length-1];
+      }
       var newnote = {
-       
         n_header: header,
         n_notedate: notedate,
         n_content: content,
         n_location: location,
-        filepath: filepath,
+        filepath: filename,
         email: currentuser
       };
       console.log(newnote);
+      $('#imgpreview').attr("src","../assets/uploaded_images/"+filename);
       // send an AJAX POST-request with jQuery
-      $.post("/api/notes/new", newnote, function() {
-      window.location.href = "/notes";
+      $.post("/api/notes/new", newnote, function(response) {
+        console.log("response :: "+response);
+         // window.location.href = "/notes";
     });
 
       // empty each input box by replacing the value with an empty string
       $("#notesheader").val("");
       $("#notescontent").val("");
       $("#notedate").val("");  
-    
    });
 
-    $("#login-btn").on("click", function(event) {
-      event.preventDefault();
-
-      // Wont submit the post if we are missing a body or a title
-      var email = $("#email").val();
-      var password = $("#password").val().trim();
-      var queryUrl;
-
-      if (!email || !password) {
-        return;
-      }
-      else
-      {
-         queryUrl = "/api/login/"+email+"/"+password;
-      }
-     // send an AJAX POST-request with jQuery
-      $.get(queryUrl, function(result) {
-        console.log("RESUTSSSSSS :: "+result);
-        if(result){
-          window.location.href = "/task";
-        }
-
-     });
-
-      // empty each input box by replacing the value with an empty string
-      $("#email").val("");
-      $("#password").val("");  
-    
-   });
 });
