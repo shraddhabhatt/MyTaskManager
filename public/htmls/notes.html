@@ -179,11 +179,11 @@
                   <div class="row">
                     <div class="input-field col s4">
                       <input id="notedate" type="text" class="datepicker">
-                      <label>Date</label>
+                      <label for="notedate">Date</label>
                     </div>
                     <div class="input-field col s6">
                       <input id="notelocation" type="text">
-                      <label>Location</label>
+                      <label class="active">Location</label>
                     </div>
                     <div class="input-field">
                       <a href="#" class="btn-floating btn-small waves-effect waves-light cyan" onclick="getLocation();"><i class="material-icons">location_on</i></a>
@@ -205,7 +205,7 @@
                   <i class="material-icons">mic</i></a>
                </div>
 
-               <div class="input-field col s6" id="map-container"></div>
+               <div class="input-field col s6" height="50%" id="map-container"></div>
               <!-- Modal Structure -->
               <div id="imgmodal" class="modal">
                 <div class="modal-content">
@@ -224,7 +224,7 @@
               <!-- Start Tap Target Structure -->
               <div class="tap-target cyan" data-activates="mybtn">
                 <div class="tap-target-content white-text">
-                  <iframe id="chatbot" width="300" height="320" style="bottom: 100px; right: 10px;"
+                  <iframe id="chatbot" width="300" height="420" style="bottom: 100px; right: 10px;"
                       src="https://console.dialogflow.com/api-client/demo/embedded/b1ee9060-3ef2-42f2-a7d0-dd5dfd98936f">
                   </iframe>
                   <a href="#!" onclick="$('.tap-target').tapTarget('close')">Dismiss</a>
@@ -246,6 +246,8 @@
       <script>
          $(document).ready(function(){
 
+            M.updateTextFields();
+            M.textareaAutoResize($('#notescontent'));
             $('.modal').modal();
             
             $('.datepicker').pickadate({
