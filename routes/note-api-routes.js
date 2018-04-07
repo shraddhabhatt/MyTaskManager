@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 var Storage = multer.diskStorage({ 
     destination: function (req, file, callback) { 
-        callback(null, "../MyTaskManager/public/assets/uploaded_images"); 
+        callback(null, "../public/assets/uploaded_images"); 
     }, 
     filename: function (req, file, callback) { 
         callback(null, file.originalname); 
