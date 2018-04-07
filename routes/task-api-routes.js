@@ -168,10 +168,10 @@ module.exports = function(app) {
           UserId: user.id
           // UserId: 1
         }).then(function(dbPost) {
-          var responseToUser = "task has been successfully entered";
-          var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
-          res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-          res.send(responseJson);
+          //var responseToUser = "task has been successfully entered";
+          //var responseJson = {fulfillmentText: responseToUser}; //currently only text, need to add in speech
+         //res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+          res.json(dbPost);
         });
     });
 });
