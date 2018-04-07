@@ -34,16 +34,3 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-// require("dotenv").config();
-// var twilio = require('twilio'); //download the twilio npm package
-// var keys = require("./keys.js");
-//
-// var client = new twilio(keys.twilio.accountSid, keys.twilio.authToken);
-//
-// client.messages.create({
-//     body: 'INSERT THE TASK HERE FROM THE DATA BASE',
-//     to: '+1207*******',  // Text this number
-//     from: '+16036643221' // From a valid Twilio number
-// })
-// .then((message) => console.log(message.sid));
