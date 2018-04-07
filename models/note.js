@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     n_location: {
-      type: DataTypes.GEOMETRY('POINT'),
+      type: DataTypes.STRING,
       allowNull: true,
     },
     n_content: {
