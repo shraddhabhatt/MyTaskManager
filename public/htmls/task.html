@@ -1,188 +1,196 @@
 <html lang="en" class="full-height">
-   <body>
-      <head>
-         <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-         <link rel="icon" href="assets/images/favicon.ico" type="image/ico" sizes="16x16">
-         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-         crossorigin="anonymous"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-         <!-- Compiled and minified JavaScript -->
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-         <link href="https://fonts.googleapis.com/css?family=Chicle|Spirax" rel="stylesheet">
-         
-         <title>Tasks Sample</title>
-         <style type="text/css">
-          header{
-            font-family: 'Chicle', cursive;
-            font-size: 65px;
-            color: black;
-            background: url('../assets/images/header.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center; 
-            
-          }
-          body {
-            background: #FFF;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 100vh;
-          }
-          main {
-             width: 100%;
-             height: 100%;
-             flex: 1 0 auto;
-             display: flex;
-             flex-direction: row;
-             justify-content: space-between;
-          }
-          .task-container {
-            height: 100%;
-            flex-grow: 1;
-            flex-basis: 30%;
-            justify-content: flex-end;
-          }
-          nav{
-            background-color: #506d7c !important;
-            border-bottom: 5px solid #fff;
-            border-top: 5px solid #fff;
 
-          }
-          .row{
-            margin-bottom: 5px;
-          }
-          .ngl {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-          }
-          footer{
-              background-color: #506d7c !important;
-              border-bottom: 5px solid #fff;
-              border-top: 5px solid #fff;
-              color: #fff;
-              width: 100%;
-              height: 30px;
-          }
-      </style>
-      </head> 
-      <!--Main Navigation-->
-      <header>
-         <!-- Intro Section -->
-         <div class="view hm-black-light jarallax" data-jarallax='{"speed": 0.2}'>
-            <div class="full-bg-img">
-               <div class="container flex-center">
-                  <div class="row pt-5 mt-3">
-                     <div class="col-md-12">
-                        <div class="text-center">
-                           <h1 class="h1-reponsive text-dark text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
-                           <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
-                           <h5 class="text-uppercase mb-5 text-dark wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+<body>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="assets/images/favicon.ico" type="image/ico" sizes="16x16">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Chicle|Spirax" rel="stylesheet">
+
+    <title>Tasks Sample</title>
+    <style type="text/css">
+      header {
+        font-family: 'Chicle', cursive;
+        font-size: 65px;
+        color: black;
+        background: url('../assets/images/header.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+
+      }
+
+      body {
+        background: #FFF;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 100vh;
+      }
+
+      main {
+        width: 100%;
+        height: 100%;
+        flex: 1 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .task-container {
+        height: 100%;
+        flex-grow: 1;
+        flex-basis: 30%;
+        justify-content: flex-end;
+      }
+
+      nav {
+        background-color: #506d7c !important;
+        border-bottom: 5px solid #fff;
+        border-top: 5px solid #fff;
+
+      }
+
+      .row {
+        margin-bottom: 5px;
+      }
+
+      .ngl {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+      }
+
+      footer {
+        background-color: #506d7c !important;
+        border-bottom: 5px solid #fff;
+        border-top: 5px solid #fff;
+        color: #fff;
+        width: 100%;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <!--Main Navigation-->
+  <header>
+    <!-- Intro Section -->
+    <div class="view hm-black-light jarallax" data-jarallax='{"speed": 0.2}'>
+      <div class="full-bg-img">
+        <div class="container flex-center">
+          <div class="row pt-5 mt-3">
+            <div class="col-md-12">
+              <div class="text-center">
+                <h1 class="h1-reponsive text-dark text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
+                <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
+                <h5 class="text-uppercase mb-5 text-dark wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
+              </div>
             </div>
-         </div>
-      </header>
-      <!--Navbar-->
-      <nav>
-       <div class="nav-wrapper">
-         <ul class="left hide-on-med-and-down">
-           <li><a href="login.html">HOME</a></li>
-           <li><a href="task.html">TASK</a></li>
-           <li><a href="notes.html">NOTES</a></li>
-         </ul>
-       </div>
-     </nav>
-      <!--Main Layout-->
-      <main>
-         <div class="container task-container col-md-6">
-            <!--Inputting new task-->
-         <form id="task-form">
-           <div class="row">
-               <div class="input-field col s10">
-                 <input id="taskname" type="text" name="taskname" class="validate" required/>     <!--  -->
-                 <label for="taskname">Task</label>
-               </div>
-             </div>
-             <div class="row">
-               <div class="input-field col s6">
-                     <!-- <i class="material-icons prefix">account_circle</i> -->
-                     <input id="taskdate" type="text" class="datepicker">
-                     <label>Date</label>
-                  </div>
-                  <div class="input-field col s6">
-                     <!-- <i class="material-icons prefix">account_circle</i> -->
-                     <input id="tasktime" type="text" class="timepicker">
-                     <label>Time</label>
-                  </div>
-             </div>
-             <div class="row">
-               <div class="input-field col s10">
-                 <textarea id="messagebox" class="materialize-textarea"></textarea>
-                 <label for="messagebox">Message</label>
-               </div>
-             </div>
-             <button class="btn waves-effect waves-light" id="addtask-btn">SET TASK</button>
-         </form>
-         </div>
-         <!--Table w/ tasks-->
-         <br>
-         <div class="container task-container col-md-6">
-            <table class="table table-striped">
-               <thead>
-                  <tr>
-                     <th scope="col">Task</th>
-                     <th scope="col">Due Date/Time</th>
-                     <th scope="col">Done</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td id="task-chart"></td>
-                     <td id="Due-chart"></td>
-                     <td id="Done"><input type="checkbox" class="filled-in" checked="checked" /></td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-      </main>
-      <footer class="footer">
-          <div class="footer-copyright ">
-            <span class="grey-text text-lighten-4">© 2018 Copyrights from Clark-Matthew-Sarah-Shraddha</span>
-            <a class="grey-text text-lighten-4 right" href="https://github.com/shraddhabhatt/Burger">developer area</a>
           </div>
-      </footer>
-      <script src="../assets/js/task.js" type="text/javascript"></script>
-      <script>
-         $(document).ready(function(){
-            $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 5, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-            });
-           $('.timepicker').pickatime({
-              default: 'now', // Set default time: 'now', '1:30AM', '16:30'
-              fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-              twelvehour: false, // Use AM/PM or 24-hour format
-              donetext: 'OK', // text for done-button
-              cleartext: 'Clear', // text for clear-button
-              canceltext: 'Cancel', // Text for cancel-button
-              autoclose: false, // automatic close timepicker
-              ampmclickable: true, // make AM PM clickable
-              aftershow: function(){} //Function for after opening timepicker
-            });
-         });
+        </div>
+      </div>
+    </div>
+  </header>
+  <!--Navbar-->
+  <nav>
+    <div class="nav-wrapper">
+      <ul class="left hide-on-med-and-down">
+        <li><a href="login.html">HOME</a></li>
+        <li><a href="task.html">TASK</a></li>
+        <li><a href="notes.html">NOTES</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!--Main Layout-->
+  <main>
+    <div class="container task-container col-md-6">
+      <!--Inputting new task-->
+      <form id="task-form">
+        <div class="row">
+          <div class="input-field col s10">
+            <input id="taskname" type="text" name="taskname" class="validate" required/>
+            <label for="taskname">Task</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <!-- <i class="material-icons prefix">account_circle</i> -->
+            <input id="taskdate" type="text" class="datepicker">
+            <label>Date</label>
+          </div>
+          <div class="input-field col s6">
+            <!-- <i class="material-icons prefix">account_circle</i> -->
+            <input id="tasktime" type="text" class="timepicker">
+            <label>Time</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s10">
+            <textarea id="messagebox" class="materialize-textarea"></textarea>
+            <label for="messagebox">Message</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" id="addtask-btn">SET TASK</button>
+      </form>
+    </div>
+    <!--Table w/ tasks-->
+    <br>
+    <div class="container task-container col-md-6">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Due Date/Time</th>
+            <th scope="col">Done</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="task-chart"></td>
+            <td id="Due-chart"></td>
+            <td id="Done"><input type="checkbox" class="filled-in" checked="checked" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="footer-copyright ">
+      <span class="grey-text text-lighten-4">© 2018 Copyrights from Clark-Matthew-Sarah-Shraddha</span>
+      <a class="grey-text text-lighten-4 right" href="https://github.com/shraddhabhatt/Burger">developer area</a>
+    </div>
+  </footer>
+  <script src="../assets/js/task.js" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 5, // Creates a dropdown of 15 years to control year,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: false // Close upon selecting a date,
+      });
+      $('.timepicker').pickatime({
+        default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+        fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
+        twelvehour: false, // Use AM/PM or 24-hour format
+        donetext: 'OK', // text for done-button
+        cleartext: 'Clear', // text for clear-button
+        canceltext: 'Cancel', // Text for cancel-button
+        autoclose: false, // automatic close timepicker
+        ampmclickable: true, // make AM PM clickable
+        aftershow: function() {} //Function for after opening timepicker
+      });
+    });
+  </script>
+</body>
 
-      </script>
-   </body>
 </html>

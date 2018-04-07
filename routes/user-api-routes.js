@@ -8,7 +8,8 @@ module.exports = function(app) {
     db.User.create({
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      phonenumber: req.body.phonenumber
     }).then(function(dbresponse) {
         res.json(dbresponse);
       });
@@ -42,4 +43,4 @@ module.exports = function(app) {
   });
 
 
-}; 
+};
