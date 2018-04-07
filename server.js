@@ -21,6 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Static directory
 app.use(express.static("public"));
+// Handlebars
+_dirname = path.resolve();
+app.use(express.static(_dirname + '/public'));
+app.set('views', path.join(_dirname, './views'));
+app.engine('handlebars', expressHandlebars({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
 // Routes
 // =============================================================
 require("./routes/user-api-routes.js")(app);

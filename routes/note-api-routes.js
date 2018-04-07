@@ -53,8 +53,12 @@ app.post("/api/upload", function(req,res){
   });
 });
 
-app.get("/", function (req, res) { 
-    res.sendFile(__dirname + "/notes.html"); 
-}); 
+app.get("/api/notes", function(req, res) {
+    console.log(res);
+    db.Note.findAll({})
+    .then(function(dbPost) {
+    res.json(dbPost);
+    });
+  });
 
 }

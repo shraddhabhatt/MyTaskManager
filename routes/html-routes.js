@@ -7,21 +7,21 @@ var path = require("path");
 // Routes
 // =============================================================
 module.exports = function(app) {
-
-	app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/htmls/login.html"));
+//login
+  app.get("/", function(req, res) {
+   res.render("login");
   });
 
-	app.get("/login", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/htmls/login.html"));
+  app.get("/login", function(req, res) {
+    res.render("login");
   });
 
-	app.get("/task", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/htmls/task.html"));
+app.get("/task", function(req, res) {
+    res.render("task");
   });
 
-	app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/htmls/notes.html"));
+  app.get("/notes", function(req, res) {
+    res.render("notes");
   });
 
 }; 

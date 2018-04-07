@@ -31,8 +31,23 @@ $(document).ready(function()
         $.post("/api/task/new", newTask, function() {
         
       //  window.location.href = "/task";
+        }).done(function(){
+          $.get("/api/posts", function(data){
+            console.log(data);
+
+            var table = $('#tableData')
+            
+            data.forEach(function(chartInput){
+              var row = $('<tr>')
+              var cell1 = $('<td>').text(chartInput.task_text);
+              var cell2 = $('<td>').text(chartInput.task_date);
+              row.append(cell1);
+              row.append(cell2);
+              table.append(row);
+            });
+          });
         });
-      
+
       // empty each input box by replacing the value with an empty string
       $("#taskname").val("");
       $("#taskdate").val("");
@@ -40,5 +55,7 @@ $(document).ready(function()
       $("#taskmessage").val(""); 
     
    });
+
+
 
 });

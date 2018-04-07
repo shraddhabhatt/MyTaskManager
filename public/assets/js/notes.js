@@ -76,7 +76,26 @@ $(document).ready(function()
       $.post("/api/notes/new", newnote, function(response) {
         console.log("response :: "+response);
          // window.location.href = "/notes";
-    });
+    }).done(function(){
+          $.get("/api/notes", function(data){
+            console.log(data);
+
+            var table = $('#noteInput')
+            
+            data.forEach(function(chartInput){
+              console.log(chartInput);
+              var row = $('<tr>')
+              var cell1 = $('<td>').text(chartInput.n_header);
+              var cell2 = $('<td>').text(chartInput.n_content);
+              var cell3 = $('<td>').text(chartInput.n_notedate);
+              //var cell4 = $('<td>').text(chartInput.);
+              row.append(cell1);
+              row.append(cell2);
+              row.append(cell3);
+              table.append(row);
+            });
+          });
+        });
 
       // empty each input box by replacing the value with an empty string
       $("#notesheader").val("");
