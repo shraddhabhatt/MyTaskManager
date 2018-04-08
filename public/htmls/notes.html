@@ -245,7 +245,6 @@
       <!-- <script src="../assets/js/dropify.min.js"></script> -->
       <script>
          $(document).ready(function(){
-
            //M.updateTextFields();
             M.textareaAutoResize($('#textarea1'));
             $('.modal').modal();
@@ -258,7 +257,6 @@
             close: 'Ok',
             closeOnSelect: false // Close upon selecting a date,
             });
-
             var options = { 
                 beforeSubmit: showRequest,  // pre-submit callback 
                 success: showResponse  // post-submit callback 
@@ -271,7 +269,6 @@
                 // always return false to prevent standard browser submit and page navigation 
                 return true; 
               }); 
-
              // pre-submit callback 
             function showRequest(formData, jqForm, options) { 
                 alert('Uploading is starting.'); 
@@ -282,7 +279,6 @@
             function showResponse(responseText, statusText, xhr, $form) { 
                 alert('status: ' + statusText + '\n\nresponseText: \n' + responseText ); 
             } 
-
           }); 
        </script>
    </body>

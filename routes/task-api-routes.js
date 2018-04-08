@@ -17,7 +17,7 @@ module.exports = function(app) {
               isdone: 0,
               UserId: user.id
             }).then(function(dbPost) {
-              var responseToUser = "task has been successfully entered";
+              var responseToUser = "task " + req.body.result.parameters.taskName + " has been successfully entered";
               var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
               res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
               res.send(responseJson);
@@ -37,7 +37,7 @@ module.exports = function(app) {
                 }
               }
             ).then(function(dbPost) {
-              var responseToUser = "task has been successfully entered as complete";
+              var responseToUser = "task " + taskName + " has been successfully entered as complete";
               var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
               res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
               res.send(responseJson);
@@ -60,61 +60,40 @@ module.exports = function(app) {
       }
 
       else if(req.body.result.action == "note.add"){
-          // geolocation.getCurrentPosition(function (err, position) {
-          //   if (err) throw err
-          //   console.log(position)
-          where.is("Portsmouth, NH", function(err, result) {
-            if (result) {
-
-              console.log('Lat: ' + result.get('lat'));
-              console.log('Lng: ' + result.get('lng'));
-              var lat = result.get('lat');
-              var long = result.get('lng');
-              var location = { type: 'Point', coordinates: [lat , long]};
-              console.log(location);
 
               db.User.find({where: {id: 1}}).then(function(user) 
             {
                db.Note.create({
                   n_header: req.body.result.parameters.noteHeader,
                   n_notedate: req.body.result.parameters.noteDate,
-                  n_location: lat + ", " + long,
+                  n_location: "43.0718, 70.7626",
                   n_content: req.body.result.parameters.noteContent,
                   UserId: user.id
                 }).then(function(dbPost) {
-                  var responseToUser = "note has been successfully entered";
+                  var responseToUser = "note " + req.body.result.parameters.noteHeader + " has been successfully entered";
                   var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
                   res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
                   res.send(responseJson);
                   
                 });
               });
-            }
-          });          
-        // });
       }
 
       else if(req.body.result.action == "note.update"){
-         where.is("Portsmouth, NH", function(err, result) {
-          if (result){
-              console.log('Lat: ' + result.get('lat'));
-              console.log('Lng: ' + result.get('lng'));
-              var lat = result.get('lat');
-              var long = result.get('lng');
 
               if(req.body.result.parameters.noteContent && req.body.result.parameters.noteDate){
                   db.Note.find({where: {n_header: req.body.result.parameters.noteHeader}}).then(function(note){
                     db.Note.update({
                     n_content: note.n_content + " // " + req.body.result.parameters.noteContent,
                     n_notedate: req.body.result.parameters.noteDate,
-                    n_location: lat + ", " + long 
+                    n_location: "43.0718, 70.7626" 
                     }, {
                     where: {
                       n_header: req.body.result.parameters.noteHeader
                       }
                     }
                   ).then(function(dbPost) {
-                    var responseToUser = "note has been successfully updated";
+                    var responseToUser = "note " + req.body.result.parameters.noteHeader + " has been successfully updated";
                     var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
                     res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
                     res.send(responseJson);
@@ -125,23 +104,20 @@ module.exports = function(app) {
                 db.Note.find({where: {n_header: req.body.result.parameters.noteHeader}}).then(function(note){
                     db.Note.update({
                     n_content: note.n_content + " // " + req.body.result.parameters.noteContent,
-                    n_location: lat + ", " + long
+                    n_location: "43.0718, 70.7626"
                     }, {
                     where: {
                       n_header: req.body.result.parameters.noteHeader
                       }
                     }
                   ).then(function(dbPost) {
-                    var responseToUser = "note has been successfully updated";
+                    var responseToUser = "note " + req.body.result.parameters.noteHeader + " has been successfully updated";
                     var responseJson = {speech: responseToUser}; //currently only text, need to add in speech
                     res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
                     res.send(responseJson);
                   });
                 });
-            }         
-          }
-         }); 
-          
+            }                   
       }     
     });
       
