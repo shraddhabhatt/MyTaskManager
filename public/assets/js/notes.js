@@ -105,6 +105,7 @@ var getNoteData = function(header,userid){
     if(filename != null){
         $('#imgpreview').attr("src","../public/assets/uploaded_images/"+filename);
     }
+    Materialize.updateTextFields();
     updating = true;
   });
 }

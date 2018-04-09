@@ -1,4 +1,3 @@
-   console.log("entered user.js");
    var currentuser = sessionStorage.getItem('email');
    console.log("CURRENT USER :: "+currentuser);
    var updating = false;
@@ -18,7 +17,8 @@
           $("#tasktime").val(c_tasktime);
           $("#messagebox").val(data.task_message);
           data.isdone ? $("#checkboxisdone").prop('checked', true) : $("#checkboxisdone").prop('checked', false);
-
+          Materialize.updateTextFields();
+      
           updating = true;
        });
     }
@@ -111,8 +111,8 @@
         }).then(function() {
             viewData();
             clearview();
-          });
-        }
+        });
+    }
 
       // This function does an API call to delete posts
       function deleteTask(id) {
@@ -125,7 +125,6 @@
           });
       }
 
-
     function clearview(){
             $("#taskname").val("");
             $("#taskdate").val("");
@@ -137,7 +136,7 @@
             $('#' + modal).openModal(); 
             $('#' + modal + '_YesBtn').click(function(){ $('#' + modal).closeModal(); 
             document.location = but.href; 
-    }); 
+      }); 
     }
 
     $(window).on('load',function() {
