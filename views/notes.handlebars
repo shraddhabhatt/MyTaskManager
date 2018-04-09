@@ -53,19 +53,19 @@
             <h4>Notes</h4>
               <form id="notes-form">
                 <div class="row">
-                   <div class="input-field col s10">
+                   <div class="input-field col-md-12">
                      <input id="notesheader" type="text" name="notesheader" class="validate" required/>
                      <label for="notesheader">Header</label>
                    </div>
                  </div>
                  <div class="row">
-                   <div class="input-field col s10">
+                   <div class="input-field col-md-12">
                      <textarea id="notescontent" class="materialize-textarea"></textarea>
                      <label for="notescontent">Message</label>
                    </div>
                   </div>
                   <div class="row">
-                    <div class="input-field col s4">
+                    <div class="input-field col-md-12">
                       <input id="notedate" type="text" class="datepicker">
                       <label for="notedate">Date</label>
                     </div>
@@ -87,8 +87,9 @@
               </form>
             </div>
             <div class="col-md-6">
-               <div class="input-field col-md-6" height="50%" id="map-container"></div>
+               <div class="input-field col-md-8" height="50%" id="map-container"></div>
             </div>
+            
             </div>
               <!-- Element Showed -->
               <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -102,7 +103,7 @@
                   <form id="frmUploader" enctype="multipart/form-data" action="/api/upload" method="post"> 
                      <div class="row">
                           <div class="input-field col s6">
-                              <img id="imgpreview" class="materialboxed" width="360" height="300" src=" ">
+                              <img id="imgpreview" class="materialboxed" width="360" height="300" src="../assets/images/task_bg.png">
                               <input type="file" name="imgUploader" id="filename" multiple /> 
                               <input type="submit" name="submit" id="btnSubmit" value="Upload" /> 
                           </div>

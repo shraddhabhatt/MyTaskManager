@@ -3,8 +3,8 @@ var twilio = require('twilio'); //download the twilio npm package
 var keys = require("../../../keys.js");
 
 var defaultphone = keys.twilio.number;
-// var userphone = "+12072515500";
-var userphone;
+var userphone = "+12072515500";
+//var userphone;
 
 var client = new twilio(keys.twilio.accountSid, keys.twilio.authToken);
 
