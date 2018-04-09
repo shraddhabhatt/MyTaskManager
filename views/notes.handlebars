@@ -102,7 +102,7 @@
                   <form id="frmUploader" enctype="multipart/form-data" action="/api/upload" method="post"> 
                      <div class="row">
                           <div class="input-field col s6">
-                              <img id="imgpreview" class="materialboxed" width="360" height="300" src="../assets/images/notes_header.jpg">
+                              <img id="imgpreview" class="materialboxed" width="360" height="300" src=" ">
                               <input type="file" name="imgUploader" id="filename" multiple /> 
                               <input type="submit" name="submit" id="btnSubmit" value="Upload" /> 
                           </div>
@@ -138,7 +138,8 @@
            //M.updateTextFields();
            //M.textareaAutoResize($('#textarea1'));
             $('.modal').modal();
-            
+            $('.tap-target').tapTarget('open');
+
             $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 5, // Creates a dropdown of 15 years to control year,

@@ -39,6 +39,15 @@
              margin-left: 50px;
              margin-right: 20px; 
           }
+          tr{
+            display: table;
+          }
+          th,
+          td{
+            width: 200px; 
+            word-wrap: break-word;
+            display: table-cell; 
+          }
           .task-container {
             min-height: 100vh;
             flex-grow: 0;

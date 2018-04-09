@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 var Storage = multer.diskStorage({ 
     destination: function (req, file, callback) { 
-        callback(null, "../public/assets/uploaded_images"); 
+        callback(null, "../MyTaskManager/public/assets/uploaded_images"); 
     }, 
     filename: function (req, file, callback) { 
         callback(null, file.originalname); 
@@ -23,7 +23,7 @@ app.post("/api/notes/new", function(req, res) {
               n_notedate: req.body.n_notedate,
               n_content: req.body.n_content,
               n_location: req.body.n_location,
-              n_image: req.body.filepath,
+              n_image: req.body.n_image,
               UserId: user.id
                 
         }).then(function(dbPost) {
@@ -49,12 +49,37 @@ app.post("/api/upload", function(req,res){
   });
 });
 
-app.get("/api/notes", function(req, res) {
+//get all notes from the database
+ app.get("/api/notes", function(req, res) {
     console.log(res);
     db.Note.findAll({})
     .then(function(dbPost) {
     res.json(dbPost);
     });
+  });
+
+// get a single note record
+ app.get("/api/notes/:header/:userid", function(req, res) {
+    console.log("Note Searching");
+    db.Note.findOne({ where: {
+            n_header: req.params.header,
+            UserId: req.params.userid
+          }}).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+ // update a note
+  app.put("/api/notes/edit", function(req, res) {
+    db.Note.update(req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
   });
 
 }
