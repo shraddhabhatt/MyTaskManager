@@ -1,10 +1,54 @@
-$(document).ready(function() 
-{
+var getTaskData = function (taskname, userid){
+      
+      var queryURL = "api/task/"+taskname+"/"+userid;
+      $.get(queryURL, function(data){
+          
+          var c_taskdate = moment(data.task_date).format('MM/DD/YYYY');
+          var c_tasktime = moment(data.task_date).format('HH:mm');
+
+          taskid = data.id;
+          $("#taskname").val(data.task_text);
+          $("#taskdate").val(c_taskdate);
+          $("#tasktime").val(c_tasktime);
+          $("#messagebox").val(data.task_message);
+
+          updating = true;
+       });
+    }
+ 
+  var viewData = function (){
+
+        $('#tableData').empty();
+        $.get("/api/posts", function(data){
+         console.log(data);
+
+         var table = $('#tableData')
+                  
+         data.forEach(function(chartInput){
+         console.log("Data :: "+chartInput.UserId+" :: "+chartInput.task_text);
+                    var ismanual = "manual";
+                    if(chartInput.use_ai)
+                       ismanual = "chat"
+                    var row = $('<tr>')
+                    var cell1 = $('<td>').text(chartInput.task_text);
+                    var cell2 = $('<td>').text(chartInput.task_date);
+                    var cell3 = $('<td>').text(ismanual);
+                    var cell4 = $('<a onClick="getTaskData(\'' + chartInput.task_text + '\',\'' + chartInput.UserId + '\')" class="btn-floating btn-small waves-effect waves-light cyan"><i class="material-icons">edit</i></a>');
+                
+                    row.append(cell1);
+                    row.append(cell2);
+                    row.append(cell3);
+                    row.append(cell4);
+                    table.append(row);
+            });
+      });
+  }
    console.log("entered user.js");
    var currentuser = sessionStorage.getItem('email');
    console.log("CURRENT USER :: "+currentuser);
+   var updating = false;
+   var taskid;
 
-  
  $("#addtask-btn").on("click", function(event) {
       event.preventDefault();
       // Wont submit the post if we are missing a body or a title
@@ -28,34 +72,45 @@ $(document).ready(function()
         };
         console.log(newTask);
         // send an AJAX POST-request with jQuery
-        $.post("/api/task/new", newTask, function() {
-        
-      //  window.location.href = "/task";
-        }).done(function(){
-          $.get("/api/posts", function(data){
-            console.log(data);
+        if (updating) {
+            newTask.id = taskid;
+            updateTask(newTask);
+          }
+          else {
+            submitTask(newTask);
+          }
 
-            var table = $('#tableData')
-            
-            data.forEach(function(chartInput){
-              var row = $('<tr>')
-              var cell1 = $('<td>').text(chartInput.task_text);
-              var cell2 = $('<td>').text(chartInput.task_date);
-              row.append(cell1);
-              row.append(cell2);
-              table.append(row);
-            });
-          });
-        });
-
-      // empty each input box by replacing the value with an empty string
-      $("#taskname").val("");
-      $("#taskdate").val("");
-      $("#tasktime").val("");  
-      $("#taskmessage").val(""); 
+      
+    });
     
-   });
+    function submitTask(newTask){
+      $.post("/api/task/new", newTask, function(response) {
+            
+            viewData();
+            clearview();
+      
+        });
+    }
 
-
-
-});
+    function updateTask(newTask) {
+        $.ajax({
+          method: "PUT",
+          url: "/api/task/edit",
+          data: newTask
+        }).then(function() {
+            viewData();
+            clearview();
+          });
+        }
+    
+    function clearview(){
+            $("#taskname").val("");
+            $("#taskdate").val("");
+            $("#tasktime").val("");  
+            $("#messagebox").val(""); 
+    }
+    
+    $(window).on('load',function() {
+        viewData();
+    });
+  

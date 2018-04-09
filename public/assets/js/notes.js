@@ -38,13 +38,38 @@ var showPosition = function(position) {
       var response = latitude + ',' + longitude;  // build string containing lat/long
       $("#notelocation").val(response);                     // write string to input field
 }
+var viewData = function (){
+        
+        console.log("function called !! ");
+        $.get("/api/notes", function(data){
+            console.log(data);
 
+            var table = $('#noteInput')
+            
+            data.forEach(function(chartInput){
+              console.log(chartInput);
+              var row = $('<tr>')
+              var cell1 = $('<td>').text(chartInput.n_header);
+              var cell2 = $('<td>').text(chartInput.n_content);
+              var cell3 = $('<td>').text(chartInput.n_notedate);
+              //var cell4 = $('<td>').text(chartInput.);
+              row.append(cell1);
+              row.append(cell2);
+              row.append(cell3);
+              table.append(row);
+            });
+       
+      });
+}
+$(window).on('load',function() {
+    viewData();
+});
 $(document).ready(function() 
 {
   console.log("entered user.js");
 
  $('.tap-target').tapTarget('open');
- 
+
  $("#addnote-btn").on("click", function(event) {
       
       event.preventDefault();
@@ -74,33 +99,16 @@ $(document).ready(function()
       $('#imgpreview').attr("src","../assets/uploaded_images/"+filename);
       // send an AJAX POST-request with jQuery
       $.post("/api/notes/new", newnote, function(response) {
+
         console.log("response :: "+response);
+        viewData();
+        // empty each input box by replacing the value with an empty string
+        $("#notesheader").val("");
+        $("#notescontent").val("");
+        $("#notedate").val("");  
          // window.location.href = "/notes";
-    }).done(function(){
-          $.get("/api/notes", function(data){
-            console.log(data);
+    });    
+ });
 
-            var table = $('#noteInput')
-            
-            data.forEach(function(chartInput){
-              console.log(chartInput);
-              var row = $('<tr>')
-              var cell1 = $('<td>').text(chartInput.n_header);
-              var cell2 = $('<td>').text(chartInput.n_content);
-              var cell3 = $('<td>').text(chartInput.n_notedate);
-              //var cell4 = $('<td>').text(chartInput.);
-              row.append(cell1);
-              row.append(cell2);
-              row.append(cell3);
-              table.append(row);
-            });
-          });
-        });
-
-      // empty each input box by replacing the value with an empty string
-      $("#notesheader").val("");
-      $("#notescontent").val("");
-      $("#notedate").val("");  
-   });
 
 });

@@ -1,92 +1,5 @@
-<style type="text/css">
-          header{
-            font-family: 'Chicle', cursive;
-            font-size: 65px;
-            color: black;
-            background: url('../assets/images/notes_header.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center; 
-          }
-          body {
-            background: #FFF;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 100vh;
-          }
-          section {
-            flex-basis: content;
-          }
-          main {
-             width: 100%;
-             height: 100%;
-             flex: 1 0 auto;
-             display: flex;
-             flex-direction: row;
-             justify-content: center;
-          }
-          .task-container {
-            min-height: 100vh;
-            flex-grow: 0;
-            flex-basis: 30%;
-            justify-content: flex-end;
-          }
-          nav{
-            background-color: #506d7c !important;
-            border-bottom: 5px solid #fff;
-            border-top: 5px solid #fff;
-          }
-          a:hover {
-            background-color: #618496 !important;
-            background-size: 75% 75%;
-            color: white;
-          }
-          #rowbtn{
-            justify-content: center;
-          }
-          .row{
-            margin-bottom: 5px;
-          }
-          .ngl {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-          }
-           #imgmodal{
-            background: white;
-            padding: 20px 15px;
-            border: 5px solid #26a69a;
-            justify-content: center;
-            width: 450px;
-            height: 100%;
-            box-sizing: border-box;
-          }
-          #chatbot{
-            border-radius: 25px;
-            border: 5px solid #fff;
-            bottom: 20px;
-            right: 20px;
-          }
-          .tap-target{
-            color: #fff;
-            border-radius: 50%;
-            a {
-              color: #fff;
-              text-decoration:underline;
-            }
-          }
-          footer{
-              background-color: #506d7c !important;
-              border-bottom: 5px solid #fff;
-              border-top: 5px solid #fff;
-              color: #fff;
-              flex-shrink: 0;
-          }
-      </style>
-      </head>
       <!--Main Navigation-->
-      <header>
+      <header id='note'>
          <!-- Intro Section -->
          <div class="view hm-black-light jarallax" data-jarallax='{"speed": 0.2}'>
             <div class="full-bg-img">
@@ -134,7 +47,9 @@
         </section>
         <br>
           <main>
-           <div class="container col-md-6">
+          <div class="container col-md-12">
+          <div class="row">
+           <div class="col-md-6">
             <h4>Notes</h4>
               <form id="notes-form">
                 <div class="row">
@@ -171,14 +86,15 @@
                   </div>
               </form>
             </div>
-            <div class="container col-md-6">
+            <div class="col-md-6">
+               <div class="input-field col-md-6" height="50%" id="map-container"></div>
+            </div>
+            </div>
               <!-- Element Showed -->
               <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
                   <a id="mybtn" href=" " class="btn btn-floating btn-large cyan">
                   <i class="material-icons">mic</i></a>
                </div>
-
-               <div class="input-field col s6" height="50%" id="map-container"></div>
               <!-- Modal Structure -->
               <div id="imgmodal" class="modal">
                 <div class="modal-content">
@@ -205,8 +121,8 @@
               </div>
             </div>
               <!-- End Tap Target Structure -->
-          </div>
-        </div>
+            </div>
+         </div>
       </main>
        <footer class="footer">
           <div class="footer-copyright ">
