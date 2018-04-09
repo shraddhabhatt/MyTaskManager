@@ -15,6 +15,7 @@ module.exports = function(app) {
               task_text: req.body.result.parameters.taskName,
               task_date: req.body.result.parameters.date,
               isdone: 0,
+              use_ai: 1,
               UserId: user.id
             }).then(function(dbPost) {
               var responseToUser = "task " + req.body.result.parameters.taskName + " has been successfully entered";
@@ -148,6 +149,18 @@ module.exports = function(app) {
           id: req.body.id
         }
       })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
+  // DELETE route for deleting posts
+  app.delete("/api/task/:id", function(req, res) {
+    db.Task.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
       .then(function(dbPost) {
         res.json(dbPost);
       });

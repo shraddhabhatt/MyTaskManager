@@ -7,9 +7,9 @@
           <div class="row pt-5 mt-3">
             <div class="col-md-12">
               <div class="text-center">
-                <h1 class="h1-reponsive text-dark text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
+                <h1 class="h1-reponsive text-uppercase font-weight-bold mb-5 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
                 <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
-                <h5 class="text-uppercase mb-5 text-dark wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
+                <h3 class="text-uppercase mb-5 wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
               </div>
             </div>
           </div>
@@ -56,15 +56,18 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s5">
             <!-- <i class="material-icons prefix">account_circle</i> -->
             <input id="taskdate" type="text" class="datepicker">
             <label>Date</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col s5">
             <!-- <i class="material-icons prefix">account_circle</i> -->
             <input id="tasktime" type="text" class="timepicker">
             <label>Time</label>
+          </div>
+          <div col s2>
+           <input width="25px" height="25px" type="checkbox" class="larger" id="checkboxisdone"><label for="checkboxisdone"><h6>Task Completed ?</h6></label>
           </div>
         </div>
         <div class="row">
@@ -75,6 +78,18 @@
         </div>
         <button class="btn waves-effect waves-light" id="addtask-btn">SET TASK</button>
       </form>
+    </div>
+    <!-- Confirmation Dialog --->
+    <div id="confirmdialog" class="modal">
+        <div class="modal-content">
+            <h4>Please Confirm</h4>
+            <p>Are you sure want to delete the task <strong id="attr-data-id"></strong> ?</p>
+             <input type="hidden" name="task" id="hiddentaskid">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Cancel</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn" id="okBtn">Delete</a>
+       </div>
     </div>
     <!-- Element Showed -->
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -91,7 +106,7 @@
           </div>
         </div>
       </div>
-  <!-- End Tap Target Structure -->
+    <!-- End Tap Target Structure -->
     
   </main>
   <footer class="footer">
@@ -103,6 +118,14 @@
   <script src="../assets/js/task.js" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
+      $('.modal').modal({
+        ready: function(modal, trigger) {
+          // Do whatever you want to do with your modal and trigger button
+          // For example here 'id' and 'data-id' attributes of trigger are displayed in modal
+          modal.find('#hiddentaskid').val(trigger.attr('id'));
+          modal.find('#attr-data-id').text(trigger.data('id'));
+        }
+      });
       $('.tap-target').tapTarget('open');
       $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month

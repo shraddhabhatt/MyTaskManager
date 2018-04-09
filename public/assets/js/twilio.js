@@ -3,8 +3,8 @@ var twilio = require('twilio'); //download the twilio npm package
 var keys = require("../../../keys.js");
 
 var defaultphone = keys.twilio.number;
-var userphone = "+12072515500";
-// var userphone;
+// var userphone = "+12072515500";
+var userphone;
 
 var client = new twilio(keys.twilio.accountSid, keys.twilio.authToken);
 
@@ -27,9 +27,9 @@ db.sequelize.query('SELECT task_text FROM tasks WHERE task_date <=?',
   });
 });
 
-// db.sequelize.query('SELECT phonenumber FROM users WHERE id =?',
-//   { replacements: ["1"], type: db.sequelize.QueryTypes.SELECT }
-// ).then(users => {
-//   userphone = users.phonenumber;
-//   console.log("this code is working");
-// });
+db.sequelize.query('SELECT phonenumber FROM users WHERE id =?',
+  { replacements: ["1"], type: db.sequelize.QueryTypes.SELECT }
+).then(users => {
+  userphone = users.phonenumber;
+  console.log("this code is working");
+});
