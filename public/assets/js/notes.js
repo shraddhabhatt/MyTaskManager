@@ -1,3 +1,8 @@
+var currentuser = sessionStorage.getItem('email');
+console.log("CURRENT USER :: "+currentuser);
+   var updating = false;
+   var noteid;
+
 var getLocation = function(){
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -9,7 +14,11 @@ var showPosition = function(position) {
       var latitude    = position.coords.latitude;       // set latitude variable
       var longitude   = position.coords.longitude;      // set longitude variable
             
-      var mapcanvas   = document.createElement('div');    // create div to hold map
+      showMap(latitude,longitude);
+}
+var showMap = function(latitude,longitude){
+
+    var mapcanvas   = document.createElement('div');    // create div to hold map
       mapcanvas.id = 'map';                   // give this div an id of 'map'
       mapcanvas.style.height = '300px';             // set map height
       mapcanvas.style.width = '100%';               // set map width
@@ -38,17 +47,73 @@ var showPosition = function(position) {
       var response = latitude + ',' + longitude;  // build string containing lat/long
       $("#notelocation").val(response);                     // write string to input field
 }
+var viewData = function (){
+        
+        $('#noteInput').empty();
+        console.log("function called !! ");
+        $.get("/api/notes", function(data){
+            console.log(data);
 
-$(document).ready(function() 
-{
-  console.log("entered user.js");
+            var table = $('#noteInput')
+            
+            data.forEach(function(chartInput){
+              console.log(chartInput);
+              var row = $('<tr>')
+              var cell1 = $('<td>').text(chartInput.n_header);
+              var cell2 = $('<td>').text(chartInput.n_content);
+              var cell3 = $('<td>').text(chartInput.n_notedate);
+              var cell4 = $('<a onClick="getNoteData(\'' + chartInput.n_header + '\',\'' + chartInput.UserId + '\')" class="btn-floating btn-small waves-effect waves-light cyan"><i class="material-icons">edit</i></a>');
+              row.append(cell1);
+              row.append(cell2);
+              row.append(cell3);
+              row.append(cell4);
+              table.append(row);
+            });
+       
+      });
+}
+$(window).on('load',function() {
+    viewData();
+});
 
- $('.tap-target').tapTarget('open');
- 
- $("#addnote-btn").on("click", function(event) {
-      
+var getNoteData = function(header,userid){
+
+    var queryURL = "api/notes/"+header+"/"+userid;
+    $.get(queryURL, function(data){
+          
+    var notedate = moment(data.n_notedate).format('MM/DD/YYYY');
+    
+    noteid = data.id;
+    $("#notesheader").val(data.n_header);
+    $("#notedate").val(notedate);
+    $("#notelocation").val(data.n_location);
+    $("#notescontent").val(data.n_content);
+
+    var location = data.n_location;
+    var latitude;      // set latitude variable
+    var longitude;      // set longitude variable
+         
+    if(location != null){
+        var coordinates = location.split(',');
+        latitude = coordinates[0];
+        longitude = coordinates[1];
+        showMap(latitude,longitude);
+    }
+
+    var filename = data.n_image;
+
+    /*if(filename != null){
+        var imgpath = "../assets/uploaded_images/"+filename;
+        $('#showimage').attr("src",imgpath);
+        console.log("Image PAth ::"+imgpath);
+    }*/
+    Materialize.updateTextFields();
+    updating = true;
+  });
+}
+
+$("#addnote-btn").on("click", function(event) {
       event.preventDefault();
-      var currentuser = sessionStorage.getItem('email');
            
       // Wont submit the post if we are missing a body or a title
       var header = $("#notesheader").val().trim();
@@ -62,45 +127,54 @@ $(document).ready(function()
         var fields = filepath.split('\\');
         filename = fields[fields.length-1];
       }
-      var newnote = {
+      var newNote = {
         n_header: header,
         n_notedate: notedate,
         n_content: content,
         n_location: location,
-        filepath: filename,
+        n_image: filename,
         email: currentuser
       };
-      console.log(newnote);
-      $('#imgpreview').attr("src","../assets/uploaded_images/"+filename);
+      console.log(newNote);
+      $('#imgpreview').attr("src","../public/assets/uploaded_images/"+filename);
+
+      if(updating) {
+        newNote.id = noteid;
+        updateNote(newNote);
+      }
+      else {
+        submitNote(newNote);
+      }
+          
+ });
+
+function submitNote(newNote){
       // send an AJAX POST-request with jQuery
-      $.post("/api/notes/new", newnote, function(response) {
+      $.post("/api/notes/new", newNote, function(response) {
         console.log("response :: "+response);
-         // window.location.href = "/notes";
-    }).done(function(){
-          $.get("/api/notes", function(data){
-            console.log(data);
+        viewData();
+        // window.location.href = "/notes";
+    }); 
+}
 
-            var table = $('#noteInput')
-            
-            data.forEach(function(chartInput){
-              console.log(chartInput);
-              var row = $('<tr>')
-              var cell1 = $('<td>').text(chartInput.n_header);
-              var cell2 = $('<td>').text(chartInput.n_content);
-              var cell3 = $('<td>').text(chartInput.n_notedate);
-              //var cell4 = $('<td>').text(chartInput.);
-              row.append(cell1);
-              row.append(cell2);
-              row.append(cell3);
-              table.append(row);
-            });
-          });
-        });
+// Update Notes
+function updateNote(newNote) {
+    $.ajax({
+          method: "PUT",
+          url: "/api/notes/edit",
+          data: newNote
+    }).then(function() {
+        viewData();
+        clearView();
+    });
+}
 
-      // empty each input box by replacing the value with an empty string
-      $("#notesheader").val("");
-      $("#notescontent").val("");
-      $("#notedate").val("");  
-   });
-
-});
+// empty each input box by replacing the value with an empty string
+function clearView(){
+   
+    $("#notesheader").val("");
+    $("#notescontent").val("");
+    $("#notedate").val(""); 
+    $("#notelocation").val("");
+    $("#filename").val("");
+}

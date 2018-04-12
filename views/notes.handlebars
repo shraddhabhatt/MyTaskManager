@@ -1,92 +1,5 @@
-<style type="text/css">
-          header{
-            font-family: 'Chicle', cursive;
-            font-size: 65px;
-            color: black;
-            background: url('../assets/images/notes_header.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center; 
-          }
-          body {
-            background: #FFF;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 100vh;
-          }
-          section {
-            flex-basis: content;
-          }
-          main {
-             width: 100%;
-             height: 100%;
-             flex: 1 0 auto;
-             display: flex;
-             flex-direction: row;
-             justify-content: center;
-          }
-          .task-container {
-            min-height: 100vh;
-            flex-grow: 0;
-            flex-basis: 30%;
-            justify-content: flex-end;
-          }
-          nav{
-            background-color: #506d7c !important;
-            border-bottom: 5px solid #fff;
-            border-top: 5px solid #fff;
-          }
-          a:hover {
-            background-color: #618496 !important;
-            background-size: 75% 75%;
-            color: white;
-          }
-          #rowbtn{
-            justify-content: center;
-          }
-          .row{
-            margin-bottom: 5px;
-          }
-          .ngl {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-          }
-           #imgmodal{
-            background: white;
-            padding: 20px 15px;
-            border: 5px solid #26a69a;
-            justify-content: center;
-            width: 450px;
-            height: 100%;
-            box-sizing: border-box;
-          }
-          #chatbot{
-            border-radius: 25px;
-            border: 5px solid #fff;
-            bottom: 20px;
-            right: 20px;
-          }
-          .tap-target{
-            color: #fff;
-            border-radius: 50%;
-            a {
-              color: #fff;
-              text-decoration:underline;
-            }
-          }
-          footer{
-              background-color: #506d7c !important;
-              border-bottom: 5px solid #fff;
-              border-top: 5px solid #fff;
-              color: #fff;
-              flex-shrink: 0;
-          }
-      </style>
-      </head>
       <!--Main Navigation-->
-      <header>
+      <header id='note'>
          <!-- Intro Section -->
          <div class="view hm-black-light jarallax" data-jarallax='{"speed": 0.2}'>
             <div class="full-bg-img">
@@ -94,9 +7,9 @@
                   <div class="row pt-5 mt-3">
                      <div class="col-md-12">
                         <div class="text-center">
-                           <h1 class="h1-reponsive white-text text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Notes for Remembrance</strong></h1>
+                           <h1 class="h1-reponsive dark-text text-uppercase font-weight-bold mb-5 wow fadeInDown" data-wow-delay="0.3s"><strong>Notes for Remembrance</strong></h1>
                            <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
-                           <h5 class="text-uppercase mb-5 white-text wow fadeInDown" data-wow-delay="0.4s"><strong>Catchy tag line</strong></h5>
+                           <h3 class="text-uppercase mb-5 dark-text wow fadeInDown" data-wow-delay="0.4s"><strong>Thoughts and memories for lifetime</strong></h5>
                         </div>
                      </div>
                   </div>
@@ -134,23 +47,25 @@
         </section>
         <br>
           <main>
-           <div class="container col-md-6">
+          <div class="container col-md-12">
+          <div class="row">
+           <div class="col-md-6">
             <h4>Notes</h4>
               <form id="notes-form">
                 <div class="row">
-                   <div class="input-field col s10">
+                   <div class="input-field col-md-12">
                      <input id="notesheader" type="text" name="notesheader" class="validate" required/>
                      <label for="notesheader">Header</label>
                    </div>
                  </div>
                  <div class="row">
-                   <div class="input-field col s10">
+                   <div class="input-field col-md-12">
                      <textarea id="notescontent" class="materialize-textarea"></textarea>
                      <label for="notescontent">Message</label>
                    </div>
                   </div>
                   <div class="row">
-                    <div class="input-field col s4">
+                    <div class="input-field col-md-12">
                       <input id="notedate" type="text" class="datepicker">
                       <label for="notedate">Date</label>
                     </div>
@@ -165,20 +80,22 @@
                   </div>
                   <div class="row">
                     <div class="col s12" id="rowbtn">
-                        <button class="btn waves-effect waves-light flex-right" id="addnote-btn">ADD</button>
+                        <button class="btn waves-effect waves-light flex-right" id="addnote-btn">SAVE NOTES</button>
                         <a href="#imgmodal" class="modal-trigger btn waves-effect waves-light flex-right">Upload Image</a>
                     </div>
                   </div>
               </form>
             </div>
-            <div class="container col-md-6">
+            <div class="col-md-6">
+               <div class="input-field col-md-8" height="50%" id="map-container"></div>
+            </div>
+            
+            </div>
               <!-- Element Showed -->
               <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
                   <a id="mybtn" href=" " class="btn btn-floating btn-large cyan">
                   <i class="material-icons">mic</i></a>
                </div>
-
-               <div class="input-field col s6" height="50%" id="map-container"></div>
               <!-- Modal Structure -->
               <div id="imgmodal" class="modal">
                 <div class="modal-content">
@@ -186,7 +103,7 @@
                   <form id="frmUploader" enctype="multipart/form-data" action="/api/upload" method="post"> 
                      <div class="row">
                           <div class="input-field col s6">
-                              <img id="imgpreview" class="materialboxed" width="360" height="300" src="../assets/images/notes_header.jpg">
+                              <img id="imgpreview" class="materialboxed" width="360" height="300" src="../assets/images/task_bg.png">
                               <input type="file" name="imgUploader" id="filename" multiple /> 
                               <input type="submit" name="submit" id="btnSubmit" value="Upload" /> 
                           </div>
@@ -205,8 +122,8 @@
               </div>
             </div>
               <!-- End Tap Target Structure -->
-          </div>
-        </div>
+            </div>
+         </div>
       </main>
        <footer class="footer">
           <div class="footer-copyright ">
@@ -222,7 +139,8 @@
            //M.updateTextFields();
            //M.textareaAutoResize($('#textarea1'));
             $('.modal').modal();
-            
+            $('.tap-target').tapTarget('open');
+
             $('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 5, // Creates a dropdown of 15 years to control year,

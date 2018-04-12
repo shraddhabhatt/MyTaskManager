@@ -15,6 +15,7 @@ module.exports = function(app) {
               task_text: req.body.result.parameters.taskName,
               task_date: req.body.result.parameters.date,
               isdone: 0,
+              use_ai: 1,
               UserId: user.id
             }).then(function(dbPost) {
               var responseToUser = "task " + req.body.result.parameters.taskName + " has been successfully entered";
@@ -118,7 +119,7 @@ module.exports = function(app) {
                   });
                 });
             }                   
-      }     
+        }     
     });
       
 
@@ -129,7 +130,42 @@ module.exports = function(app) {
       res.json(dbPost);
     });
   });
+
+  //get all tasks from the database
+  app.get("/api/task/:taskname/:userid", function(req, res) {
+    console.log("Task Findind Started");
+    db.Task.findOne({ where: {
+            task_text: req.params.taskname,
+            UserId: req.params.userid
+          }}).then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
   
+  app.put("/api/task/edit", function(req, res) {
+    db.Task.update(req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
+  // DELETE route for deleting posts
+  app.delete("/api/task/:id", function(req, res) {
+    db.Task.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+      .then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
+
   // add new task associated with user id manually using the SET TASK Button
   app.post("/api/task/new", function(req, res) {
       // Add sequelize code for creating a Task using req.body.result.parameters,

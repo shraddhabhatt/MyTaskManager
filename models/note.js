@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     n_notedate: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     n_location: {

@@ -1,68 +1,5 @@
-<style type="text/css">
-      header {
-        font-family: 'Chicle', cursive;
-        font-size: 65px;
-        color: black;
-        background: url('../assets/images/header.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-
-      }
-
-      body {
-        background: #FFF;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        min-height: 100vh;
-      }
-
-      main {
-        width: 100%;
-        height: 100%;
-        flex: 1 0 auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-
-      .task-container {
-        height: 100%;
-        flex-grow: 1;
-        flex-basis: 30%;
-        justify-content: flex-end;
-      }
-
-      nav {
-        background-color: #506d7c !important;
-        border-bottom: 5px solid #fff;
-        border-top: 5px solid #fff;
-
-      }
-
-      .row {
-        margin-bottom: 5px;
-      }
-
-      .ngl {
-        position: absolute;
-        top: -20px;
-        right: -20px;
-      }
-
-      footer {
-        background-color: #506d7c !important;
-        border-bottom: 5px solid #fff;
-        border-top: 5px solid #fff;
-        color: #fff;
-        width: 100%;
-        height: 30px;
-      }
-    </style>
-  </head>
   <!--Main Navigation-->
-  <header>
+  <header id='task'>
     <!-- Intro Section -->
     <div class="view hm-black-light jarallax" data-jarallax='{"speed": 0.2}'>
       <div class="full-bg-img">
@@ -70,9 +7,9 @@
           <div class="row pt-5 mt-3">
             <div class="col-md-12">
               <div class="text-center">
-                <h1 class="h1-reponsive text-dark text-uppercase font-weight-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
+                <h1 class="h1-reponsive text-uppercase font-weight-bold mb-5 wow fadeInDown" data-wow-delay="0.3s"><strong>Task Manager</strong></h1>
                 <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
-                <h5 class="text-uppercase mb-5 text-dark wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
+                <h3 class="text-uppercase mb-5 wow fadeInDown" data-wow-delay="0.4s"><strong>Time is Money</strong></h5>
               </div>
             </div>
           </div>
@@ -90,26 +27,47 @@
     </div>
   </nav>
   <!--Main Layout-->
-  <main>
-    <div class="container task-container col-md-6">
+  <section>
+  <!--Table w/ tasks-->
+    <br>
+    <div class="container col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Due Date/Time</th>
+            <th scope="col">Created</th>
+            <th scope="col">Operations</th>
+          </tr>
+        </thead>
+        <tbody id="tableData">
+        </tbody>
+      </table>
+    </div>
+    </section>
+    <main>
+    <div class="container col-sd-12">
       <!--Inputting new task-->
       <form id="task-form">
         <div class="row">
-          <div class="input-field col s10">
+          <div class="input-field col-lg-12">
             <input id="taskname" type="text" name="taskname" class="validate" required/>
             <label for="taskname">Task</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col-lg-5">
             <!-- <i class="material-icons prefix">account_circle</i> -->
             <input id="taskdate" type="text" class="datepicker">
             <label>Date</label>
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col-lg-5">
             <!-- <i class="material-icons prefix">account_circle</i> -->
             <input id="tasktime" type="text" class="timepicker">
             <label>Time</label>
+          </div>
+          <div col-lg-2>
+           <input width="25px" height="25px" type="checkbox" class="larger" id="checkboxisdone"><label for="checkboxisdone"><h6>Task Completed ?</h6></label>
           </div>
         </div>
         <div class="row">
@@ -118,24 +76,38 @@
             <label for="messagebox">Message</label>
           </div>
         </div>
-        <button class="btn waves-effect waves-light" id="addtask-btn">SET TASK</button>
+        <button class="btn waves-effect waves-light" id="addtask-btn">SAVE TASK</button>
       </form>
     </div>
-    <!--Table w/ tasks-->
-    <br>
-    <div class="container task-container col-md-6">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Task</th>
-            <th scope="col">Due Date/Time</th>
-            <th scope="col">Done</th>
-          </tr>
-        </thead>
-        <tbody id="tableData">
-        </tbody>
-      </table>
+    <!-- Confirmation Dialog --->
+    <div id="confirmdialog" class="modal">
+        <div class="modal-content">
+            <h4>Please Confirm</h4>
+            <p>Are you sure want to delete the task <strong id="attr-data-id"></strong> ?</p>
+             <input type="hidden" name="task" id="hiddentaskid">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Cancel</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn" id="okBtn">Delete</a>
+       </div>
     </div>
+    <!-- Element Showed -->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+       <a id="mybtn" href=" " class="btn btn-floating btn-large cyan">
+           <i class="material-icons">mic</i></a>
+     </div>
+    <!-- Start Tap Target Structure -->
+       <div class="tap-target cyan" data-activates="mybtn">
+          <div class="tap-target-content white-text">
+            <iframe id="chatbot" width="300" height="420" style="bottom: 100px; right: 10px;"
+                      src="https://console.dialogflow.com/api-client/demo/embedded/b1ee9060-3ef2-42f2-a7d0-dd5dfd98936f">
+             </iframe>
+            <a href="#!" onclick="$('.tap-target').tapTarget('close')">Dismiss</a>
+          </div>
+        </div>
+      </div>
+    <!-- End Tap Target Structure -->
+    
   </main>
   <footer class="footer">
     <div class="footer-copyright ">
@@ -146,6 +118,15 @@
   <script src="../assets/js/task.js" type="text/javascript"></script>
   <script>
     $(document).ready(function() {
+      $('.modal').modal({
+        ready: function(modal, trigger) {
+          // Do whatever you want to do with your modal and trigger button
+          // For example here 'id' and 'data-id' attributes of trigger are displayed in modal
+          modal.find('#hiddentaskid').val(trigger.attr('id'));
+          modal.find('#attr-data-id').text(trigger.data('id'));
+        }
+      });
+      $('.tap-target').tapTarget('open');
       $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 5, // Creates a dropdown of 15 years to control year,
