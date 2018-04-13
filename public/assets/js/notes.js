@@ -100,13 +100,13 @@ var getNoteData = function(header,userid){
         showMap(latitude,longitude);
     }
 
-    var filename = data.n_image;
+    // var filename = data.n_image;
 
-    if(filename != null){
-        var imgpath = "../assets/uploaded_images/"+filename;
-        $('#showimage').attr("src",imgpath);
-        console.log("Image PAth ::"+imgpath);
-    }
+    // if(filename != null){
+    //     var imgpath = "../assets/uploaded_images/"+filename;
+    //     $('#showimage').attr("src",imgpath);
+    //     console.log("Image PAth ::"+imgpath);
+    // }
     Materialize.updateTextFields();
     updating = true;
   });
